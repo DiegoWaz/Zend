@@ -1,0 +1,14 @@
+.vagrant/
+vendor/
+config/development.config.php
+data/cache/*
+!data/cache/.gitkeep
+phpunit.xml
+.env
+phpcs.xml
+phpunit.xml.dist
+LICENSE.md
+TODO.md
+.idea/
+CONDUCT.md
+CONTRIBUTING.md
