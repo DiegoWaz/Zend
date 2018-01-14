@@ -1,7 +1,18 @@
 <h1>Suppression du meetup</h1>
 
 <div class="col-md-12 form-control">
-    <p>Êtes-vous sûr de vouloir supprimer ce meetup</p>
-    <a href="#">Oui</a>
-    <a href="#">Non</a>
+    <?php
+    $url = $this->url('meetup', array(
+        'action' => 'delete',
+        'id'     => $this->id,
+    ));
+    ?>
+    <form action="<?php echo $url; ?>" method="post">
+        <div>
+            <input type="hidden" name="id" value="<?php echo (int) $album->id; ?>" />
+            <input type="submit" name="del" value="Yes" />
+            <input type="submit" name="del" value="No" />
+        </div>
+    </form>
+
 </div>

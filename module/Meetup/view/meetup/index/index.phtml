@@ -11,7 +11,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <a href="<?= $this->url('meetup/post') ."/". $meetup->getId(); ?>">
+                            <a href="<?= $this->url('meetup/add') ."/". $meetup->getId(); ?>">
                                 <?= $meetup->getTitle() ?>
                             </a>
 
@@ -34,8 +34,11 @@
                             <?= $meetup->getDescription() ?>
                         </p>
                         <p>
-                            <a href="<?= $this->url('meetup', ['action' => 'edit', 'id' => $meetup->getId()]); ?>"> edit</a>
-                            <a href="<?= $this->url('meetup/delete') ."/". $meetup->getId(); ?>"> delete</a>
+                            <a href="<?= $this->url('meetup/edit', ['id' => $meetup->getId()]); ?>"> edit</a>
+                            <form action="<?php echo $this->url('meetup/delete'); ?>" method="post">
+                                <input type="hidden" name="id" value="<?= $meetup->getId(); ?>">
+                                <input type="submit" value="Delete">
+                            </form>
                         </p>
                     </div>
                 </div>

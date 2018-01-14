@@ -1,0 +1,26 @@
+<h1>Edit a meetup</h1>
+
+<?php
+$form = $this->form; /* @var $form \Zend\Form\Form */
+?>
+
+<?= $this->form()->openTag($form); ?>
+
+
+<div class="col-md-12 form-control">
+    <div class="col-md-4"><?= $this->formRow($form->get('title')) ?></div>
+
+    <div class="col-md-4"><?= $this->formRow($form->get('date')) ?></div>
+
+    <div class="col-md-4"><?= $this->formRow($form->get('participant')) ?></div>
+
+    <div class="col-md-6"><?= $this->formRow($form->get('organisateur')) ?></div>
+
+    <div class="col-md-6"><?= $this->formRow($form->get('entreprise')) ?></div>
+
+    <div class="col-md-12"><?= $this->formRow($form->get('description')) ?></div>
+
+    <div class="col-md-12"><?= $this->formInput($form->get('submit')) ?></div>
+
+</div>
+<?= $this->form()->closeTag($form); ?>

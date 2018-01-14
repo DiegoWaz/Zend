@@ -68,25 +68,45 @@ final class IndexController extends AbstractActionController
 
     public function postAction()
     {
-
+        var_dump("test");
     }
 
     public function editAction()
     {
-        $rowset = $this->MeetupForm->select(array('id' => $id));
-        $row = $rowset->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $id");
+
+        $form = $this->MeetupForm;
+        $id = $this->params()->fromRoute('id');
+        $meetup = $this->meetupRepository->find($id);
+        $form->bind($meetup);
+
+        /* @var $request Request */
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $this->meetupRepository->createMeetup($form->getData());
+                return $this->redirect()->toRoute('meetup');
+            }
         }
-        return $row;
+        $form->prepare();
+        return new ViewModel([
+            'form' => $form,
+            'meetup' => $meetup,
+        ]);
     }
 
 
     public function deleteAction()
     {
-        var_dump($id);
-        die;
+        /* @var $request Request */
+        $request = $this->getRequest();
+        /** @var $id string */
+        $id = (string)$request->getPost('id');
+        if (empty($id)) {
+            die("error");
+        }
 
-        $this->MeetupForm->delete(array('id' => (int) $id));
+        $this->MeetupRepository->delete($id);
+        return $this->redirect()->toRoute('meetup');
     }
 }

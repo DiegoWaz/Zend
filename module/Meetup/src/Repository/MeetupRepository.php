@@ -20,4 +20,10 @@ final class MeetupRepository extends EntityRepository
     {
         return new Meetup($name, $description, $organisateur, $entreprise, $date, $participant);
     }
+
+    public function delete(string $id): void
+    {
+        $this->getEntityManager()->remove($this->find($id));
+        $this->getEntityManager()->flush();
+    }
 }
