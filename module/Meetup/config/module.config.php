@@ -52,19 +52,7 @@ return [
                                 'action'     => 'edit',
                             ],
                         ],
-                    ],
-                    'delete' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route'    => '/delete/:id',
-                            'constraints' => array(
-                                'id' => '[a-zA-Z0-9_-]*'
-                            ),
-                            'defaults' => [
-                                'action'     => 'delete',
-                            ],
-                        ],
-                    ],
+                    ]
                 ],
             ],
         ],
@@ -84,7 +72,6 @@ return [
             'meetup/index/index' => __DIR__ . '/../view/meetup/index/index.phtml',
             'meetup/index/add' => __DIR__ . '/../view/meetup/index/add.phtml',
             'meetup/index/edit' => __DIR__ . '/../view/meetup/index/edit.phtml',
-            'meetup/index/delete' => __DIR__ . '/../view/meetup/index/delete.phtml',
             'meetup/index/post' => __DIR__ . '/../view/meetup/index/post.phtml',
         ],
     ],
