@@ -25,16 +25,6 @@ return [
                     ],
                 ],
             ],
-            'ping' => [
-                'type' => Literal::class,
-                'options' => [
-                    'route'    => '/ping',
-                    'defaults' => [
-                        'controller' => Controller\PingController::class,
-                        'action'     => 'ping',
-                    ],
-                ],
-            ],
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -71,8 +61,5 @@ return [
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],
-    ],
-    'app' => [
-        'date' => '2017-12-01',
     ],
 ];

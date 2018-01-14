@@ -18,7 +18,6 @@ final class MeetupRepository extends EntityRepository
 
     public function createMeetup(string $name, string $description, string $organisateur, string $entreprise, string $date, string $participant)
     {
-
         return new Meetup($name, $description, $organisateur, $entreprise, $date, $participant);
     }
 }

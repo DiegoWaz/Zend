@@ -66,8 +66,27 @@ final class IndexController extends AbstractActionController
         ]);
     }
 
-    public function deleteAction()
+    public function postAction()
     {
 
+    }
+
+    public function editAction()
+    {
+        $rowset = $this->MeetupForm->select(array('id' => $id));
+        $row = $rowset->current();
+        if (!$row) {
+            throw new \Exception("Could not find row $id");
+        }
+        return $row;
+    }
+
+
+    public function deleteAction()
+    {
+        var_dump($id);
+        die;
+
+        $this->MeetupForm->delete(array('id' => (int) $id));
     }
 }

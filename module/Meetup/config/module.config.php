@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Meetup\Form\MeetupForm;
 use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 use Meetup\Controller;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -11,9 +12,13 @@ return [
     'router' => [
         'routes' => [
             'meetup' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/meetup',
+                    'route'    => '/meetup[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[a-zA-Z0-9_-]+',
+                    ],
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
@@ -24,25 +29,37 @@ return [
                     'add' => [
                         'type' => Literal::class,
                         'options' => [
-                            'route'    => '/new',
+                            'route'    => '/add',
                             'defaults' => [
                                 'action'     => 'add',
                             ],
                         ],
                     ],
-                    'edit' => [
-                        'type' => Literal::class,
+                    'post' => [
+                        'type' => Segment::class,
                         'options' => [
-                            'route'    => '/edit',
+                            'route'    => '/post/:id',
+                            'defaults' => [
+                                'action'     => 'post',
+                            ],
+                        ],
+                    ],
+                    'edit' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/edit/:id',
                             'defaults' => [
                                 'action'     => 'edit',
                             ],
                         ],
                     ],
                     'delete' => [
-                        'type' => Literal::class,
+                        'type' => Segment::class,
                         'options' => [
-                            'route'    => '/delete',
+                            'route'    => '/delete/:id',
+                            'constraints' => array(
+                                'id' => '[a-zA-Z0-9_-]*'
+                            ),
                             'defaults' => [
                                 'action'     => 'delete',
                             ],
@@ -68,6 +85,7 @@ return [
             'meetup/index/add' => __DIR__ . '/../view/meetup/index/add.phtml',
             'meetup/index/edit' => __DIR__ . '/../view/meetup/index/edit.phtml',
             'meetup/index/delete' => __DIR__ . '/../view/meetup/index/delete.phtml',
+            'meetup/index/post' => __DIR__ . '/../view/meetup/index/post.phtml',
         ],
     ],
     'doctrine' => [

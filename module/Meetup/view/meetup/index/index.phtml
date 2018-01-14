@@ -10,7 +10,12 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><?= $meetup->getTitle() ?></h3>
+                        <h3 class="panel-title">
+                            <a href="<?= $this->url('meetup/post') ."/". $meetup->getId(); ?>">
+                                <?= $meetup->getTitle() ?>
+                            </a>
+
+                        </h3>
                     </div>
                     <div class="panel-body">
                         <p>
@@ -28,8 +33,10 @@
                         <p>
                             <?= $meetup->getDescription() ?>
                         </p>
-
-                        <p><a href="<?= $this->url('meetup/edit'); ?>"> edit</a> <a href="<?= $this->url('meetup/delete'); ?>/<?= $meetup->getId() ?>"> delete</a></p>
+                        <p>
+                            <a href="<?= $this->url('meetup', ['action' => 'edit', 'id' => $meetup->getId()]); ?>"> edit</a>
+                            <a href="<?= $this->url('meetup/delete') ."/". $meetup->getId(); ?>"> delete</a>
+                        </p>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,37 @@
+<div class="col-md-12">
+    <?php foreach ($this->meetups as $meetup): /* @var $meetups Meetup\Controller\IndexController */ ?>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a href="<?= $this->url('meetup/post') ."/". $meetup->getId(); ?>">
+                            <?= $meetup->getTitle() ?>
+                        </a>
+
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        Date : <?= $meetup->getDate() ?>
+                    </p>
+                    <p>
+                        Organisé par : <?= $meetup->getOrganisateur() ?>
+                    </p>
+                    <p>
+                        Entreprise : <?= $meetup->getEntreprise() ?>
+                    </p>
+                    <p>
+                        Nombre de participant : <?= $meetup->getParticipant() ?>
+                    </p>
+                    <p>
+                        <?= $meetup->getDescription() ?>
+                    </p>
+                    <p>
+                        <a href="<?= $this->url('meetup/edit') ."/". $meetup->getId(); ?>"> edit</a>
+                        <a href="<?= $this->url('meetup/delete') ."/". $meetup->getId(); ?>"> delete</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
