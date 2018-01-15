@@ -2,15 +2,6 @@
 
 <?php
 $form = $this->form; /* @var $form \Zend\Form\Form */
-
-$form->setAttribute('action', $this->url(
-    'meetup',
-    array(
-        'action' => 'edit',
-        'id'     => $this->id,
-    )
-));
-$form->prepare();
 ?>
 
 <?= $this->form()->openTag($form); ?>

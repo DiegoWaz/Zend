@@ -41,7 +41,7 @@
 
                         </p>
                         <p>
-                            <a href="<?= $this->url('meetup/edit', ['id' => $meetup->getId()]); ?>"> edit</a>
+                            <a href="<?= $this->url('meetup/edit', ['id' => $meetup->getId()] ).'/'.$meetup->getId(); ?>"> edit</a>
 
                             <form action="<?php echo $this->url('meetup/delete'); ?>" method="post">
                                 <input type="hidden" name="id" value="<?= $meetup->getId(); ?>">

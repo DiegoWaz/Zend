@@ -44,9 +44,9 @@ return [
                     'post' => [
                         'type' => Segment::class,
                         'options' => [
-                            'route'    => '/post/:id',
+                            'route'    => '/edit/:id',
                             'defaults' => [
-                                'action'     => 'post',
+                                'action'     => 'edit',
                             ],
                         ],
                     ],
