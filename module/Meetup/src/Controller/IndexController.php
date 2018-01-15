@@ -10,6 +10,7 @@ use Meetup\Form\MeetupForm;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Form\Element\Date;
 
 final class IndexController extends AbstractActionController
 {
@@ -45,6 +46,7 @@ final class IndexController extends AbstractActionController
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
+
                 $Meetup = $this->MeetupRepository->createMeetup(
                     $form->getData()['title'],
                     $form->getData()['description'] ?? '',
@@ -69,7 +71,18 @@ final class IndexController extends AbstractActionController
 
     public function postAction()
     {
-        var_dump("test");
+        $id = $this->params()->fromRoute('id');
+
+        $meetup = $this->MeetupRepository->findOneBy(['id' => $id]);
+
+        if ($meetup == null)
+        {
+            return $this->redirect()->toRoute('meetup');
+        }
+
+        return new ViewModel([
+            'meetup' => $meetup,
+        ]);
     }
 
     public function editAction()
@@ -85,7 +98,7 @@ final class IndexController extends AbstractActionController
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                $this->meetupRepository->createMeetup($form->getData());
+                $this->meetupRepository->updateMeetup($form->getData());
                 return $this->redirect()->toRoute('meetup');
             }
         }

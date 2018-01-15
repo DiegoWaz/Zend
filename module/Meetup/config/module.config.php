@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Meetup\Form\MeetupForm;
+use Meetup\Form\MeetupFormFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Meetup\Controller;
@@ -14,11 +15,7 @@ return [
             'meetup' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/meetup[/:action[/:id]]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[a-zA-Z0-9_-]+',
-                    ],
+                    'route'    => '/meetup',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
@@ -32,6 +29,15 @@ return [
                             'route'    => '/add',
                             'defaults' => [
                                 'action'     => 'add',
+                            ],
+                        ],
+                    ],
+                    'edit' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/edit/:id',
+                            'defaults' => [
+                                'action'     => 'post',
                             ],
                         ],
                     ],
@@ -56,6 +62,7 @@ return [
     'service_manager' => [
         'factories' => [
             MeetupForm::class => InvokableFactory::class,
+            MeetupFormFactory::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

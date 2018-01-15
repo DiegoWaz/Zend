@@ -37,13 +37,13 @@ class Meetup
     private $description = '';
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
 
     private $startDate;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
 
     private $endDate;
@@ -61,7 +61,7 @@ class Meetup
     private $entreprise;
 
     /**
-     * @ORM\Column(type="integer", length=11, nullable=false)
+     * @ORM\Column(type="string", length=11, nullable=false)
      */
 
     private $participant;
@@ -78,7 +78,7 @@ class Meetup
      * @param $participant
      */
 
-    public function __construct(string $title, string $description = '', string $organisateur = '', string $entreprise = '', date $startDate, date $endDate, int $participant)
+    public function __construct(string $title, string $description = '', string $organisateur = '', string $entreprise = '', $startDate, $endDate, string $participant)
     {
         $this->id = Uuid::uuid4()->toString();
         $this->title = $title;
@@ -98,12 +98,12 @@ class Meetup
         return $this->id;
     }
 
-    public function getStartDate() : ?date
+    public function getStartDate()
     {
         return $this->startDate;
     }
 
-    public function getEndDate() : ?date
+    public function getEndDate()
     {
         return $this->endDate;
     }
@@ -134,7 +134,7 @@ class Meetup
     /**
      * @param string $startDate
      */
-    public function setStartDate(Date $startDate) : void
+    public function setStartDate($startDate) : void
     {
         $this->startDate = $startDate;
     }
@@ -142,7 +142,7 @@ class Meetup
     /**
      * @param string $endDat
      */
-    public function setEndDate(Date $endDate) : void
+    public function setEndDate($endDate) : void
     {
         $this->endDate = $endDate;
     }
@@ -166,7 +166,7 @@ class Meetup
     /**
      * @param string $participant
      */
-    public function setParticipant(integer $participant) : integer
+    public function setParticipant(string $participant) : void
     {
         $this->participant = $participant;
     }
@@ -180,9 +180,9 @@ class Meetup
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getParticipant() : ?int
+    public function getParticipant() : ?string
     {
         return $this->participant;
     }

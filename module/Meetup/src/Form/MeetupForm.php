@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Meetup\Form;
 
-use Doctrine\DBAL\Types\IntegerType;
+
 use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator\StringLength;
-use Zend\Validator\Date;
+use Zend\Validator\Digits;
+use Zend\Validator;
+
 
 class MeetupForm extends Form implements InputFilterProviderInterface
 {
@@ -26,7 +28,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
         ]);
 
         $this->add([
-            'type' => Element\Text::class,
+            'type' => Element\Textarea::class,
             'name' => 'description',
             'options' => [
                 'label' => 'Description',
@@ -53,7 +55,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'type' => Element\Submit::class,
             'name' => 'submit',
             'attributes' => [
-                'value' => 'Submit',
+                'value' => 'Envoyer',
             ],
         ]);
 
@@ -111,11 +113,8 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'participant' => [
                 'validators' => [
                     [
-                        'name' => IntegerType::class,
-                        'options' => [
-                            'min' => 2,
-                            'max' => 100,
-                        ],
+                        'name' => Digits::class,
+                        'step' => "1",
                     ],
                 ],
             ],
@@ -131,16 +130,11 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                 ],
             ],
             'startDate' => [
-                'validators' => [
-                    [
-                        'name' => Date::class,
-                    ],
-                ],
                 'filters' => [
                     [
                         'name' => 'Zend\Filter\DatetimeFormatter',
                         'options' => [
-                            'format' => 'Y-m-d H:i',
+                            'format' => 'Y-m-d',
                         ],
                     ]
                 ]
@@ -148,17 +142,24 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'endDate' => [
                 'validators' => [
                     [
-                        'name' => Date::class,
+                        'name' => Validator\Callback::class,
+                        'options' => [
+                            'callback' => [$this, 'diff'],
+                            'messages' => [
+                                Validator\Callback::INVALID_VALUE => 'La date de fin ne doit pas être inférieure à la date de début.',
+                            ],
+                        ],
                     ],
                 ],
                 'filters' => [
                     [
                         'name' => 'Zend\Filter\DatetimeFormatter',
                         'options' => [
-                            'format' => 'Y-m-d H:i',
+                            'format' => 'Y-m-d',
                         ],
                     ]
                 ]
+
             ],
             'entreprise' => [
                 'validators' => [
@@ -172,5 +173,10 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                 ],
             ],
         ];
+    }
+    
+    public function diff($value, $context) :bool
+    {
+        return $value <= $context['endDate'];
     }
 }

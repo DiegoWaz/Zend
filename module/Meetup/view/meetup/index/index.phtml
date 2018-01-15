@@ -11,7 +11,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <a href="<?= $this->url('meetup/add') ."/". $meetup->getId(); ?>">
+                            <a href="<?= $this->url('meetup') ."/". $meetup->getId(); ?>">
                                 <?= $meetup->getTitle() ?>
                             </a>
 
@@ -19,22 +19,22 @@
                     </div>
                     <div class="panel-body">
                         <p>
-                            Date de début : <?= $meetup->getStartDate() ?>
+                            <strong>Date de début</strong> : <?= $meetup->getStartDate() ?>
                         </p>
                         <p>
-                            Date de fin : <?= $meetup->getEndDate() ?>
+                            <strong>Date de fin</strong>  : <?= $meetup->getEndDate() ?>
                         </p>
                         <p>
-                            Organisé par : <?= $meetup->getOrganisateur() ?>
+                            <strong>Organisé par</strong> : <?= $meetup->getOrganisateur() ?>
                         </p>
                         <p>
-                            Entreprise : <?= $meetup->getEntreprise() ?>
+                            <strong>Entreprise</strong> : <?= $meetup->getEntreprise() ?>
                         </p>
                         <p>
-                            Nombre de participant : <?= $meetup->getParticipant() ?>
+                           <strong>Nombre de participant</strong>  : <?= $meetup->getParticipant() ?>
                         </p>
                         <p>
-                            Description : <br>
+                            <strong>Description</strong> : <br>
                             <fieldset>
                                 <?= $meetup->getDescription() ?>
                             </fieldset>
