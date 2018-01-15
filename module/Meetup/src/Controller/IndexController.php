@@ -50,7 +50,8 @@ final class IndexController extends AbstractActionController
                     $form->getData()['description'] ?? '',
                     $form->getData()['organisateur'],
                     $form->getData()['entreprise'],
-                    $form->getData()['date'],
+                    $form->getData()['startDate'],
+                    $form->getData()['endDate'],
                     $form->getData()['participant']
                 );
                
@@ -76,7 +77,7 @@ final class IndexController extends AbstractActionController
 
         $form = $this->MeetupForm;
         $id = $this->params()->fromRoute('id');
-        $meetup = $this->meetupRepository->find($id);
+        $meetup = $this->MeetupRepository->find($id);
         $form->bind($meetup);
 
         /* @var $request Request */
@@ -88,7 +89,9 @@ final class IndexController extends AbstractActionController
                 return $this->redirect()->toRoute('meetup');
             }
         }
+
         $form->prepare();
+
         return new ViewModel([
             'form' => $form,
             'meetup' => $meetup,

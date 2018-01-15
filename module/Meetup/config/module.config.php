@@ -44,15 +44,6 @@ return [
                             ],
                         ],
                     ],
-                    'edit' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route'    => '/edit/:id',
-                            'defaults' => [
-                                'action'     => 'edit',
-                            ],
-                        ],
-                    ]
                 ],
             ],
         ],

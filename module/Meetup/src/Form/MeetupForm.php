@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Meetup\Form;
 
+use Doctrine\DBAL\Types\IntegerType;
 use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Validator\StringLength;
+use Zend\Validator\Date;
 
 class MeetupForm extends Form implements InputFilterProviderInterface
 {
@@ -56,17 +58,26 @@ class MeetupForm extends Form implements InputFilterProviderInterface
         ]);
 
         $this->add([
-            'type' => Element\Text::class,
+            'type' => Element\Number::class,
             'name' => 'participant',
             'options' => [
                 'label' => 'Nombre de Participants'
             ],
         ]);
+
         $this->add([
-            'type' => Element\Text::class,
-            'name' => 'date',
+            'type' => Element\Date::class,
+            'name' => 'startDate',
             'options' => [
-                'label' => 'Date'
+                'label' => 'Date de début'
+            ],
+        ]);
+
+        $this->add([
+            'type' => Element\Date::class,
+            'name' => 'endDate',
+            'options' => [
+                'label' => 'Date de fin'
             ],
         ]);
 
@@ -97,6 +108,17 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                     ],
                 ],
             ],
+            'participant' => [
+                'validators' => [
+                    [
+                        'name' => IntegerType::class,
+                        'options' => [
+                            'min' => 2,
+                            'max' => 100,
+                        ],
+                    ],
+                ],
+            ],
             'organisateur' => [
                 'validators' => [
                     [
@@ -107,6 +129,36 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                         ],
                     ],
                 ],
+            ],
+            'startDate' => [
+                'validators' => [
+                    [
+                        'name' => Date::class,
+                    ],
+                ],
+                'filters' => [
+                    [
+                        'name' => 'Zend\Filter\DatetimeFormatter',
+                        'options' => [
+                            'format' => 'Y-m-d H:i',
+                        ],
+                    ]
+                ]
+            ],
+            'endDate' => [
+                'validators' => [
+                    [
+                        'name' => Date::class,
+                    ],
+                ],
+                'filters' => [
+                    [
+                        'name' => 'Zend\Filter\DatetimeFormatter',
+                        'options' => [
+                            'format' => 'Y-m-d H:i',
+                        ],
+                    ]
+                ]
             ],
             'entreprise' => [
                 'validators' => [

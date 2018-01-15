@@ -19,7 +19,10 @@
                     </div>
                     <div class="panel-body">
                         <p>
-                            Date : <?= $meetup->getDate() ?>
+                            Date de début : <?= $meetup->getStartDate() ?>
+                        </p>
+                        <p>
+                            Date de fin : <?= $meetup->getEndDate() ?>
                         </p>
                         <p>
                             Organisé par : <?= $meetup->getOrganisateur() ?>
@@ -31,10 +34,15 @@
                             Nombre de participant : <?= $meetup->getParticipant() ?>
                         </p>
                         <p>
-                            <?= $meetup->getDescription() ?>
+                            Description : <br>
+                            <fieldset>
+                                <?= $meetup->getDescription() ?>
+                            </fieldset>
+
                         </p>
                         <p>
                             <a href="<?= $this->url('meetup/edit', ['id' => $meetup->getId()]); ?>"> edit</a>
+
                             <form action="<?php echo $this->url('meetup/delete'); ?>" method="post">
                                 <input type="hidden" name="id" value="<?= $meetup->getId(); ?>">
                                 <input type="submit" value="Delete">

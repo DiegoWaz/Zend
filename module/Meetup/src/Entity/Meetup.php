@@ -6,6 +6,7 @@ namespace Meetup\Entity;
 
 use Ramsey\Uuid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Form\Element\Date;
 
 /**
  * Class Meetup
@@ -30,20 +31,27 @@ class Meetup
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=2000, nullable=false)
+     * @ORM\Column(type="text", nullable=false)
      */
 
     private $description = '';
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=false)
+     * @ORM\Column(type="date", nullable=true)
      */
 
-    private $date;
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+
+    private $endDate;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=false)
      */
+
 
     private $organisateur;
     /**
@@ -53,7 +61,7 @@ class Meetup
     private $entreprise;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=false)
+     * @ORM\Column(type="integer", length=11, nullable=false)
      */
 
     private $participant;
@@ -63,18 +71,20 @@ class Meetup
      * @param $id
      * @param $title
      * @param string $description
-     * @param $date
+     * @param $startDate
+     * @param $endDate
      * @param $organisateur
      * @param $entreprise
      * @param $participant
      */
 
-    public function __construct(string $title, string $description = '', string $organisateur = '', string $entreprise = '', string $date, string $participant)
+    public function __construct(string $title, string $description = '', string $organisateur = '', string $entreprise = '', date $startDate, date $endDate, int $participant)
     {
         $this->id = Uuid::uuid4()->toString();
         $this->title = $title;
         $this->description = $description;
-        $this->date = $date;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
         $this->organisateur = $organisateur;
         $this->entreprise = $entreprise;
         $this->participant = $participant;
@@ -88,9 +98,14 @@ class Meetup
         return $this->id;
     }
 
-    public function getDate() : ?string
+    public function getStartDate() : ?date
     {
-        return $this->date;
+        return $this->startDate;
+    }
+
+    public function getEndDate() : ?date
+    {
+        return $this->endDate;
     }
     /**
      * @return mixed
@@ -117,11 +132,19 @@ class Meetup
     }
 
     /**
-     * @param string $date
+     * @param string $startDate
      */
-    public function setDate(string $date) : void
+    public function setStartDate(Date $startDate) : void
     {
-        $this->date = $date;
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @param string $endDat
+     */
+    public function setEndDate(Date $endDate) : void
+    {
+        $this->endDate = $endDate;
     }
 
     /**
@@ -143,7 +166,7 @@ class Meetup
     /**
      * @param string $participant
      */
-    public function setParticipant(string $participant) : void
+    public function setParticipant(integer $participant) : integer
     {
         $this->participant = $participant;
     }
@@ -159,7 +182,7 @@ class Meetup
     /**
      * @return mixed
      */
-    public function getParticipant() : ?string
+    public function getParticipant() : ?int
     {
         return $this->participant;
     }

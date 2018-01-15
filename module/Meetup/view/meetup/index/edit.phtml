@@ -2,6 +2,15 @@
 
 <?php
 $form = $this->form; /* @var $form \Zend\Form\Form */
+
+$form->setAttribute('action', $this->url(
+    'meetup',
+    array(
+        'action' => 'edit',
+        'id'     => $this->id,
+    )
+));
+$form->prepare();
 ?>
 
 <?= $this->form()->openTag($form); ?>
@@ -10,7 +19,9 @@ $form = $this->form; /* @var $form \Zend\Form\Form */
 <div class="col-md-12 form-control">
     <div class="col-md-4"><?= $this->formRow($form->get('title')) ?></div>
 
-    <div class="col-md-4"><?= $this->formRow($form->get('date')) ?></div>
+    <div class="col-md-4"><?= $this->formRow($form->get('dateBegin')) ?></div>
+
+    <div class="col-md-4"><?= $this->formRow($form->get('dateLast')) ?></div>
 
     <div class="col-md-4"><?= $this->formRow($form->get('participant')) ?></div>
 
